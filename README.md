@@ -1,5 +1,5 @@
 [github地址](https://github.com/jcalaz/jcalaBlog)
-## jcalaBlog个人博客网站
+## Blog
 #### 所用技术:
  - springBoot 
  - springMVC: MVC框架

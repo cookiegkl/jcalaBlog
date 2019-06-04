@@ -21,28 +21,28 @@ import java.io.File;
 
 @Slf4j
 @Service
-public class FileUploadSerImpl implements FileUploadSer{
+public class FileUploadSerImpl implements FileUploadSer {
     private InfoSer infoSer;
 
     private SystemSetting setting;
 
     @Autowired
-    public FileUploadSerImpl(InfoSer infoSer, SystemSetting setting){
+    public FileUploadSerImpl(InfoSer infoSer, SystemSetting setting) {
         this.infoSer = infoSer;
         this.setting = setting;
     }
 
     @Override
-    public UploadPic uploadPic(HttpServletRequest request){
+    public UploadPic uploadPic(HttpServletRequest request) {
 
-        String picUrl="";
+        String picUrl = "";
         try {
-            picUrl=FileTools.updatePic("/pic/",setting.getPicHome(),request);
+            picUrl = FileTools.updatePic("/pic/", setting.getPicHome(), request);
         } catch (Exception e) {
-           log.warn("上传图片时发生错误:"+e.getLocalizedMessage());
+            log.warn("上传图片时发生错误:" + e.getLocalizedMessage());
         }
         final UploadPic upload = new UploadPic();
-        if ("".equals(picUrl)){
+        if ("".equals(picUrl)) {
             upload.setSuccess(0);
             upload.setMessage("Upload picture fail!");
             upload.setUrl("");
@@ -56,20 +56,20 @@ public class FileUploadSerImpl implements FileUploadSer{
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public Info updateAvatar(HttpServletRequest request){
-        String url=uploadPic(request).getUrl();
-        if (!"".equals(url)){
+    public Info updateAvatar(HttpServletRequest request) {
+        String url = uploadPic(request).getUrl();
+        if (!"".equals(url)) {
             infoSer.updateAvatar(url);
         }
         return infoSer.getInfo();
     }
 
     @Override
-    public ResponseEntity<byte[]> gainPic(String dir, String picName){
-        File file=new File(setting.getPicHome()+File.separatorChar+dir+File.separatorChar+picName);
+    public ResponseEntity<byte[]> gainPic(String dir, String picName) {
+        File file = new File(setting.getPicHome() + File.separatorChar + dir + File.separatorChar + picName);
         byte[] bytes;
         try {
-            bytes= FileTools.readFileToByteArray(file);
+            bytes = FileTools.readFileToByteArray(file);
         } catch (Exception e) {
             log.warn(e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

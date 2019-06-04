@@ -22,14 +22,16 @@ public class BlogView {
     private String tags;//标签，不同标签以,隔开
     private String md;//博客内容的markdown文本
     private String monthDay;//形如"Oct 04",为了方便archives页面显示，并不对应数据库的任何一列
-    public BlogView(String title,String tags,String md){
-        this.title=title;
-        this.tags=tags;
-        this.md=md;
+
+    public BlogView(String title, String tags, String md) {
+        this.title = title;
+        this.tags = tags;
+        this.md = md;
     }
-    public BlogView(int vid,String title,String tags){
-        this.vid=vid;
-        this.title=title;
-        this.tags=tags;
+
+    public BlogView(int vid, String title, String tags) {
+        this.vid = vid;
+        this.title = title;
+        this.tags = tags;
     }
 }

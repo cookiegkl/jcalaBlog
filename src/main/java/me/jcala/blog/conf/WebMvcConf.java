@@ -52,9 +52,9 @@ public class WebMvcConf extends WebMvcConfigurerAdapter implements EnvironmentAw
 
     @Bean
     public SystemSetting systemSetting() {
-        return SystemSetting.builder()
-                .picHome(propertyResolver.getProperty("home"))
-                .build();
+        String property = propertyResolver.getProperty("home");
+        System.out.println("系统路径：" + property);
+        return SystemSetting.builder().picHome(property).build();
     }
 
     @Override
